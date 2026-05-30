@@ -1,0 +1,4 @@
+/target
+/YARA
+main_old.rs
+Cargo.lock

@@ -1,0 +1,62 @@
+[Rules]
+# Network
+"IPv4 Address"          = "\\b(?:(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(?:25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\b"
+"URL"                   = "https?://[^\\s\\x00-\\x1f]{4,}"
+"UNC Path"              = "\\\\\\\\[^\\\\]+\\\\.+"
+"Domain"                = "\\b(?:[a-zA-Z0-9](?:[a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9])?\\.)+(?:com|net|org|io|gov|edu|ru|cn|de|xyz|info|biz|onion)\\b"
+"Email Address"         = "[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+\\.[a-zA-Z]{2,}"
+
+# Hashes & Encoding
+"MD5 Hash"              = "\\b[a-fA-F0-9]{32}\\b"
+"SHA256 Hash"           = "\\b[a-fA-F0-9]{64}\\b"
+"Base64 Blob"           = "(?:[A-Za-z0-9+/]{4}){8,}(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?"
+
+# Filesystem
+"Windows Path"          = "[A-Za-z]:\\\\[^\\x00-\\x1f\\*\\?\"<>\\|]+"
+"Temp Path"             = "(?i)\\\\(?:temp|tmp)\\\\[^\\x00-\\x1f]+"
+"Startup Path"          = "(?i)\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Startup"
+"AppData Path"          = "(?i)\\\\AppData\\\\(?:Roaming|Local)\\\\[^\\x00-\\x1f]+"
+
+# Registry
+"Registry Key"          = "(?i)(?:HKEY_LOCAL_MACHINE|HKEY_CURRENT_USER|HKLM|HKCU|HKEY_CLASSES_ROOT)[\\\\a-zA-Z0-9_ ]*"
+"Run Key"               = "(?i)SOFTWARE\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run"
+
+# Execution & LOLBins
+"PowerShell"            = "(?i)powershell(?:\\.exe)?(?:\\s+.*?)?"
+"Encoded Command"       = "(?i)(?:-enc|-encodedcommand)\\s+[A-Za-z0-9+/=]{20,}"
+"CMD"                   = "(?i)cmd(?:\\.exe)?\\s+/[cCkK]"
+"Rundll32"              = "(?i)rundll32(?:\\.exe)?\\s+[^\\s]+"
+"Regsvr32"              = "(?i)regsvr32(?:\\.exe)?"
+"MSHTA"                 = "(?i)mshta(?:\\.exe)?\\s+[^\\s]+"
+"WScript"               = "(?i)wscript(?:\\.exe)?\\s+[^\\s]+"
+"CertUtil"              = "(?i)certutil(?:\\.exe)?.*?(?:-decode|-urlcache)"
+"BITSAdmin"             = "(?i)bitsadmin(?:\\.exe)?.*?/transfer"
+
+# Injection & Evasion
+"VirtualAlloc"          = "(?i)VirtualAlloc(?:Ex)?"
+"WriteProcessMemory"    = "(?i)WriteProcessMemory"
+"CreateRemoteThread"    = "(?i)CreateRemoteThread"
+"Process Hollowing"     = "(?i)NtUnmapViewOfSection|ZwUnmapViewOfSection"
+"Debugger Detection"    = "(?i)IsDebuggerPresent|CheckRemoteDebuggerPresent"
+
+# Persistence
+"Scheduled Task"        = "(?i)schtasks(?:\\.exe)?.*?/create"
+"Service Install"       = "(?i)sc(?:\\.exe)?\\s+create"
+"WMI Persistence"       = "(?i)Win32_ScheduledJob|__EventFilter|__EventConsumer"
+
+# Crypto & C2 Indicators
+"XOR Key Hint"          = "(?i)xor|rc4|chacha|salsa"
+"Tor Onion"             = "[a-z2-7]{16,56}\\.onion"
+"Mutex"                 = "(?i)(?:Global|Local)\\\\[A-Za-z0-9_\\-]{4,}"
+"GUID"                  = "\\{[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\\}"
+
+# Suspicious Keywords
+"Credential Access"     = "(?i)password|passwd|credentials|login|token|apikey|api_key|secret"
+"Ransomware Hint"       = "(?i)encrypt|decrypt|ransom|bitcoin|wallet|\\.locked|\\.enc$"
+"Sandbox Evasion"       = "(?i)sandbox|vmware|virtualbox|vbox|wireshark|procmon|ollydbg|x64dbg"
+
+[YARA]
+# Rule paths
+rules = [
+    "C:\\Escaped\\Path\\Here"
+]

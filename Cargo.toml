@@ -1,0 +1,20 @@
+[package]
+name = "PexeR"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.6.1", features = ["derive"] }
+console = "0.16.3"
+entropy = "0.4.3"
+goblin = {version="0.10.7", features = ["alloc", "std"]}
+indicatif = "0.18.4"
+pathbuf = "1.0.0"
+prettytable = "0.10.0"
+regex = "1.12.3"
+serde = {version ="1.0.228", features = ["derive"]}
+serde_json = "1.0.150"
+sha2 = "0.11.0"
+toml = "1.1.2"
+walkdir = "2.5.0"
+yara-x = "1.17.0"
