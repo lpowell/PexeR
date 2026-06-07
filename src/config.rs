@@ -15,7 +15,7 @@ impl Config {
         let rules = table.get("Rules").and_then(|r| r.as_table()).map(|t| {
             t.iter().map(|(k, v)| (k.clone(), v.as_str().unwrap_or("").to_string())).collect()
         });
-        let vt = table.get("vt").and_then(|v| v.as_str()).map(|s| s.to_string());
+        let vt = table.get("Integrations").and_then(|v| v.as_table()).map(|t| t.get("VirusTotal").and_then(|vt| vt.as_str()).map(|s| s.to_string())).flatten();
         let yara = table.get("YARA").and_then(|y| y.as_table()).map(|t| {
             let rules = t.get("rules").and_then(|r| r.as_array()).map(|arr| {
                 arr.iter().filter_map(|v| v.as_str().map(|s| s.to_string())).collect()

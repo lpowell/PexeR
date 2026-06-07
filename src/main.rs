@@ -18,6 +18,7 @@ mod YARA;
 mod strings;
 mod pe_parser;
 mod deep_scan;
+mod third_party;
 
 
 // private structs
@@ -43,7 +44,10 @@ struct Args {
     lenient: bool,
 
     #[arg(short, long, default_value_t = false, help = "Deep scanning mode. This will enable packer detection, overlay analysis, and other more intensive scanning techniques.")]
-    deep: bool
+    deep: bool,
+
+    #[arg(short, long, default_value_t = false, help = "VirusTotal integration. Requires API key in config.toml. This will fetch and display VirusTotal data for the file hash.")]
+    vt: bool
 }
 
 
@@ -86,7 +90,8 @@ fn main() {
     let config_path = format!("{}\\appdata\\local\\PexeR\\config.toml", std::env::var("USERPROFILE").unwrap());
     let rules: config::Config = config::Config::from_toml(&fs::read_to_string(&config_path).expect("Failed to read config.toml")).expect("Failed to parse config.toml");
     let yara_rules = YARA::compile_rules(rules.yara.as_ref().unwrap()).unwrap();
-    _spinner.finish_with_message("Rules loaded!");
+    let vt_key: String = rules.vt.unwrap_or_default();
+    _spinner.finish_with_message("Config loaded!");
 
     let _spinner = spinner("Processing file...");
     let buffer = fs::read(&args.file).expect("Failed to read file");
@@ -144,6 +149,17 @@ fn main() {
 
         spinner.finish_with_message("Deep analysis complete!");
     }
+
+    let mut vt_data : HashMap<String, String> = HashMap::new();
+    if args.vt {
+        let spinner = spinner("Fetching VirusTotal data...");
+        assert!(!vt_key.is_empty(), "VirusTotal API key not found in config.toml");
+        vt_data = third_party::vt_fetch(&vt_key, &pe_hash);
+        // term.write_line(&format!("VirusTotal data\n {:#?}", vt_data)).unwrap();
+        spinner.finish_with_message("VirusTotal data fetched!");
+
+        // panic!();
+    }
     
 
     // Print tables
@@ -153,6 +169,15 @@ fn main() {
     meta_table.add_row(Row::new(vec![Cell::new("PE Name"), Cell::new(&pe_data.name)]));
     meta_table.add_row(Row::new(vec![Cell::new("File Hash"), Cell::new(&pe_hash)]));
     meta_table.add_row(Row::new(vec![Cell::new("File Entropy"), Cell::new(&format!("{:.4}", entropy))]));
+    meta_table.add_row(Row::new(vec![Cell::new("Verified Certificate"), Cell::new(&pe_data.certificates.to_string())]));
+    meta_table.add_row(Row::new(vec![Cell::new("File Hash"), Cell::new(&pe_hash)]));
+    if args.vt {
+        meta_table.add_row(Row::new(vec![Cell::new("VirusTotal Description"), Cell::new(&vt_data.get("Type Description").unwrap_or(&"N/A".to_string()))]));
+        meta_table.add_row(Row::new(vec![Cell::new("VirusTotal First Submission"), Cell::new(&vt_data.get("First Submission").unwrap_or(&"N/A".to_string()))]));
+        meta_table.add_row(Row::new(vec![Cell::new("VirusTotal Last Analysis"), Cell::new(&vt_data.get("Last Analysis Stats").unwrap_or(&"N/A".to_string()))]));
+        meta_table.add_row(Row::new(vec![Cell::new("VirusTotal Votes"), Cell::new(&vt_data.get("Votes").unwrap_or(&"N/A".to_string()))]));
+        meta_table.add_row(Row::new(vec![Cell::new("VirusTotal Tags"), Cell::new(&vt_data.get("Tags").unwrap_or(&"N/A".to_string()))]));
+    }
     meta_table.printstd();
 
     term.write_line("\n").unwrap();

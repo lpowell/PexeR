@@ -60,3 +60,7 @@
 rules = [
     "C:\\Escaped\\Path\\Here"
 ]
+
+[Integrations]
+# optional - required to use vt switch
+VirusTotal = "key here"

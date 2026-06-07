@@ -1,6 +1,7 @@
-use goblin::{error, Object};
+use goblin::{Object, error, pe::authenticode};
 use std::panic;
-
+use cross_authenticode::{AuthenticodeInfo};
+    
 
 
 // public struct
@@ -12,7 +13,7 @@ pub struct PE_Data<'a> {
     pub entry: u32,
     pub image_base: u64,
     pub libraries: Vec<&'a str>,
-    pub certificates: Vec<goblin::pe::certificate_table::AttributeCertificate<'a>>,
+    pub certificates: bool,
     pub imports: Vec<goblin::pe::import::Import<'a>>,
     pub exports: Vec<goblin::pe::export::Export<'a>>,
     pub sections: Vec<goblin::pe::section_table::SectionTable>
@@ -28,6 +29,14 @@ pub fn parse_pe<'a>(buffer: &'a [u8], file_name: &'a str) -> Result<PE_Data<'a>,
 
     match data {
         Ok(Ok(Object::PE(pe))) => {
+            let ai = if !pe.certificates.is_empty() {
+                match AuthenticodeInfo::try_from(buffer) {
+                    Ok(auth_info) => Some(auth_info.verify()),
+                    Err(_) => None
+                }
+            } else {
+                None
+            };
             let details = PE_Data {
                 name: pe.name.unwrap_or(file_name),
                 header: pe.header,
@@ -35,11 +44,13 @@ pub fn parse_pe<'a>(buffer: &'a [u8], file_name: &'a str) -> Result<PE_Data<'a>,
                 entry: pe.entry,
                 image_base: pe.image_base,
                 libraries: pe.libraries,
-                certificates: pe.certificates,
+                certificates: ai.unwrap_or_else(|| Ok(false)).unwrap_or(false),
                 imports: pe.imports,
                 exports: pe.exports,
                 sections: pe.sections
             };
+
+
             Ok(details)
         }
         Ok(_) => {
@@ -62,19 +73,34 @@ pub fn lenient_parse<'a>(buffer: &'a [u8], file_name: &'a str) -> Result<PE_Data
     let mut parse_opts = goblin::pe::options::ParseOptions::default();
     parse_opts.resolve_rva = false;
     parse_opts.parse_mode = goblin::pe::options::ParseMode::Permissive;
-    match goblin::pe::PE::parse_with_opts(buffer, &parse_opts) {
-        Ok(pe) => Ok(PE_Data {
+
+    let data = goblin::pe::PE::parse_with_opts(buffer, &parse_opts);
+    match data {
+        Ok(pe) => 
+        {
+            let ai = if !pe.certificates.is_empty() {
+                match AuthenticodeInfo::try_from(buffer) {
+                    Ok(auth_info) => Some(auth_info.verify()),
+                    Err(_) => None
+                }
+            } else {
+                None
+            };
+            Ok(
+            PE_Data {
             name: pe.name.unwrap_or(file_name),
             header: pe.header,
             bitness: pe.is_64,
             entry: pe.entry,
             image_base: pe.image_base,
             libraries: pe.libraries,
-            certificates: pe.certificates,
+            certificates: ai.unwrap_or_else(|| Ok(false)).unwrap_or(false),
             imports: pe.imports,
             exports: pe.exports,
             sections: pe.sections
-        }),
+        })
+    },
         Err(_) => Err(error::Error::Malformed("Lenient parsing failed".into())),
     }
+    
 }
