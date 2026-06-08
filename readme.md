@@ -18,7 +18,7 @@ I'll probably do more with it at some point.
 
 Thanks to goblin for literally doing all the work on the actual parsing for me. 
 
-AI Statement:
+AI Statement:  
     I totally used AI to generate all those regex rules. That's why they suck. I'd disable the b64 one especially.
     I also used the gemini auto suggestion thing from time to time. More for inspo though. 
     Note: a lot of graph.rs was AI inspired. Specifically the SVG production. 
