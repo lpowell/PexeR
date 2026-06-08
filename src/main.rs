@@ -136,10 +136,12 @@ fn main() {
         }
 
         let graph = graph::build_import_graph(&valid_files);
-        term.write_line(&format!("Graph has {} nodes and {} edges", graph.node_count(), graph.edge_count())).unwrap();
+        // term.write_line(&format!("Graph has {} nodes and {} edges", graph.node_count(), graph.edge_count())).unwrap();
         graph::print_graph(&graph, "graph.svg");
         _spinner.finish_with_message("Graphing complete!");
-        panic!("Graphing not fully implemented yet!");
+        // panic!("Graphing not fully implemented yet!");
+        term.write_line(&format!("Graph saved to {}\\graph.svg", std::env::current_dir().unwrap().display())).unwrap();
+        return
     }
 
     let _spinner = spinner("Processing file...");
