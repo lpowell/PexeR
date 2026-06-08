@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg width="1275" height="601.5" viewBox="0 0 1275 601.5" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="startarrow" markerWidth="10" markerHeight="7"
+refX="0" refY="3.5" orient="auto">
+<polygon points="10 0, 10 7, 0 3.5" fill="context-stroke" />
+</marker>
+<marker id="endarrow" markerWidth="10" markerHeight="7"
+refX="10" refY="3.5" orient="auto">
+<polygon points="0 0, 10 3.5, 0 7" fill="context-stroke" />
+</marker>
+
+</defs><style>
+.a15 { font-size: 15px; font-family: Times, serif; }
+</style>
+<g >
+
+            <rect x="30" y="346.251" width="200" height="50" fill="#ffffffff" 
+            stroke-width="2" stroke="#000000ff" rx="0"  />
+
+            </g>
+<text dominant-baseline="middle" text-anchor="middle" 
+            x="130" y="356.251" class="a15"><tspan x = "130" dy="1.0em">7z.dll</tspan></text><g >
+
+            <rect x="550" y="431.5" width="200" height="50" fill="#ffffffff" 
+            stroke-width="2" stroke="#000000ff" rx="0"  />
+
+            </g>
+<text dominant-baseline="middle" text-anchor="middle" 
+            x="650" y="441.5" class="a15"><tspan x = "650" dy="1.0em">BugSplat64.dll</tspan></text><g >
+
+            <rect x="810" y="343.5" width="200" height="50" fill="#ffffffff" 
+            stroke-width="2" stroke="#000000ff" rx="0"  />
+
+            </g>
+<text dominant-baseline="middle" text-anchor="middle" 
+            x="910" y="353.5" class="a15"><tspan x = "910" dy="1.0em">FreeImage.dll</tspan></text><g >
+
+            <rect x="30" y="236.25" width="200" height="50" fill="#ffffffff" 
+            stroke-width="2" stroke="#000000ff" rx="0"  />
+
+            </g>
+<text dominant-baseline="middle" text-anchor="middle" 
+            x="130" y="246.25" class="a15"><tspan x = "130" dy="1.0em">InfoAggregator.exe</tspan></text><g >
+
+            <rect x="290" y="371" width="200" height="50" fill="#ffffffff" 
+            stroke-width="2" stroke="#000000ff" rx="0"  />
+
+            </g>
+<text dominant-baseline="middle" text-anchor="middle" 
+            x="390" y="381" class="a15"><tspan x = "390" dy="1.0em">lib_docx_repair.dll</tspan></text><g >
+
+            <rect x="550" y="283" width="200" height="50" fill="#ffffffff" 
+            stroke-width="2" stroke="#000000ff" rx="0"  />
+
+            </g>
+<text dominant-baseline="middle" text-anchor="middle" 
+            x="650" y="293" class="a15"><tspan x = "650" dy="1.0em">lib_imgs_to_doc.dll</tspan></text><g >
+
+            <rect x="290" y="140" width="200" height="50" fill="#ffffffff" 
+            stroke-width="2" stroke="#000000ff" rx="0"  />
+
+            </g>
+<text dominant-baseline="middle" text-anchor="middle" 
+            x="390" y="150" class="a15"><tspan x = "390" dy="1.0em">lib_pdf_repair.dll</tspan></text><g >
+
+            <rect x="290" y="261" width="200" height="50" fill="#ffffffff" 
+            stroke-width="2" stroke="#000000ff" rx="0"  />
+
+            </g>
+<text dominant-baseline="middle" text-anchor="middle" 
+            x="390" y="271" class="a15"><tspan x = "390" dy="1.0em">lib_ps_repair.dll</tspan></text><g >
+
+            <rect x="290" y="30" width="200" height="50" fill="#ffffffff" 
+            stroke-width="2" stroke="#000000ff" rx="0"  />
+
+            </g>
+<text dominant-baseline="middle" text-anchor="middle" 
+            x="390" y="40" class="a15"><tspan x = "390" dy="1.0em">lib_TSCommunication_sdk.dll</tspan></text><g >
+
+            <rect x="550" y="30" width="200" height="50" fill="#ffffffff" 
+            stroke-width="2" stroke="#000000ff" rx="0"  />
+
+            </g>
+<text dominant-baseline="middle" text-anchor="middle" 
+            x="650" y="40" class="a15"><tspan x = "650" dy="1.0em">TSLogSDK.dll</tspan></text><g >
+
+            <rect x="1070" y="343.5" width="200" height="50" fill="#ffffffff" 
+            stroke-width="2" stroke="#000000ff" rx="0"  />
+
+            </g>
+<text dominant-baseline="middle" text-anchor="middle" 
+            x="1170" y="353.5" class="a15"><tspan x = "1170" dy="1.0em">VCOMP140.DLL</tspan></text><g >
+
+            <path id="arrow0" d="M 1010 368.5 C 1040 368.5, 1040 368.5, 1070 368.5 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow0" startOffset="50%" text-anchor="middle" class="a15"></textPath></text><g >
+
+            <path id="arrow1" d="M 230 254.76179673321235 C 259.7505650493034 250.90124246637896, 429.11379425688193 236.80630202088625, 455.5 225.5 S 559.4160037982574 102.88630693700412, 578.8123167155425 80 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow1" startOffset="50%" text-anchor="middle" class="a15"></textPath></text><g >
+
+            <path id="arrow2" d="M 200.14354066985646 286.25 C 218.96606278539574 309.61049359945196, 360.5 522.5, 390.5 522.5 S 665.5 522.5, 695.5 522.5 S 811.394812586491 414.002728642434, 833.2954545454545 393.5 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow2" startOffset="50%" text-anchor="middle" class="a15"></textPath></text><g >
+
+            <path id="arrow3" d="M 218.96103896103895 286.25 C 244.21005701299353 302.4514532500042, 290.2042143260566 350.8485262034252, 312.42848267905214 371 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow3" startOffset="50%" text-anchor="middle" class="a15"></textPath></text><g >
+
+            <path id="arrow4" d="M 230 238.33333333333334 C 257.27194468682853 225.83369201853694, 277.5384911698647 206.6410058867569, 302.5 190 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow4" startOffset="50%" text-anchor="middle" class="a15"></textPath></text><g >
+
+            <path id="arrow5" d="M 230 267.14285714285717 C 259.79379116652285 270.65426824462594, 260.431332355602 272.3596569752461, 290 277.42857142857144 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow5" startOffset="50%" text-anchor="middle" class="a15"></textPath></text><g >
+
+            <path id="arrow6" d="M 203.3370288248337 286.25 C 223.80830876706472 308.18004098324514, 365.2518337156393 477.83067778510275, 390.5 486.75 S 520.3079265185024 468.00685070556233, 550 463.71957040572795 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow6" startOffset="50%" text-anchor="middle" class="a15"></textPath></text><g >
+
+            <path id="arrow7" d="M 205.45454545454547 236.25 C 226.85799027282815 215.22875955347237, 303.5606290387638 104.0885107121383, 321.44200626959247 80 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow7" startOffset="50%" text-anchor="middle" class="a15"></textPath></text><g >
+
+            <path id="arrow8" d="M 455.3958944281525 371 C 471.12717550859685 345.4553959598499, 576.0765159994222 107.27943504291753, 588.5598017743791 80 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow8" startOffset="50%" text-anchor="middle" class="a15"></textPath></text><g >
+
+            <path id="arrow9" d="M 490 392.73396674584325 C 519.9362022469361 390.7785141050101, 620.5554737464236 384.0647287677706, 650.5 382.25 S 780.0644062897945 373.7463695155863, 810 371.7816229116945 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow9" startOffset="50%" text-anchor="middle" class="a15"></textPath></text><g >
+
+            <path id="arrow10" d="M 490 375.04761904761904 C 517.6688620755335 363.45304827310974, 533.3678451785627 348.61388484354273, 558.984375 333 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow10" startOffset="50%" text-anchor="middle" class="a15"></textPath></text><g >
+
+            <path id="arrow11" d="M 490 410.4047619047619 C 518.8275181162782 418.70983260016584, 522.3311379244665 423.9530482731098, 550 435.54761904761904 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow11" startOffset="50%" text-anchor="middle" class="a15"></textPath></text><g >
+
+            <path id="arrow12" d="M 750 322.4047619047619 C 778.8275181162782 330.70983260016584, 782.3311379244665 335.9530482731098, 810 347.54761904761904 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow12" startOffset="50%" text-anchor="middle" class="a15"></textPath></text><g >
+
+            <path id="arrow13" d="M 462.72727272727275 261 C 482.9074565471621 238.8017977981217, 566.7047677421497 104.96489820946279, 583.3406884377758 80 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow13" startOffset="50%" text-anchor="middle" class="a15"></textPath></text><g >
+
+            <path id="arrow14" d="M 490 55 C 520 55, 520 55, 550 55 " stroke="#000000ff" stroke-width="2"   marker-end="url(#endarrow)" 
+            fill="transparent" />
+
+            </g>
+<text><textPath href="#arrow14" startOffset="50%" text-anchor="middle" class="a15"></textPath></text></svg>

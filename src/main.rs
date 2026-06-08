@@ -1,8 +1,10 @@
 use clap::Parser;
+use clap::builder::Str;
 use console::Term;
 use console::style;
 use indicatif::ProgressStyle;
 use indicatif::ProgressBar;
+use core::panic;
 use std::{fs, path::Path};
 use std::time::Duration;
 use std::collections::HashMap;
@@ -19,6 +21,7 @@ mod strings;
 mod pe_parser;
 mod deep_scan;
 mod third_party;
+mod graph;
 
 
 // private structs
@@ -47,7 +50,10 @@ struct Args {
     deep: bool,
 
     #[arg(short, long, default_value_t = false, help = "VirusTotal integration. Requires API key in config.toml. This will fetch and display VirusTotal data for the file hash.")]
-    vt: bool
+    vt: bool,
+
+    #[arg(short, long, default_value_t = false, help = "Graph relationships between PE files in a directory. Saves graph to graph.svg in the working directory. Very much a WIP.")]
+    graph: bool
 }
 
 
@@ -92,6 +98,49 @@ fn main() {
     let yara_rules = YARA::compile_rules(rules.yara.as_ref().unwrap()).unwrap();
     let vt_key: String = rules.vt.unwrap_or_default();
     _spinner.finish_with_message("Config loaded!");
+
+    
+    if args.graph {
+        let _spinner = spinner("Loading directory...");
+        // panic!("Graphing not yet implemented!");
+        let files = std::fs::read_dir(&args.file).expect("Failed to read directory");
+        let mut valid_files: Vec<pe_parser::PE_Data<'static>> = Vec::new();
+        _spinner.finish_with_message("Directory loaded!");
+
+        let _spinner = spinner("Graphing...");
+        for file in files {
+            let entry = file.unwrap();
+            if entry.path().extension().map(|ext| ext.eq_ignore_ascii_case("exe") || ext.eq_ignore_ascii_case("dll")).unwrap_or(false)
+            {
+                let buffer = fs::read(entry.path()).expect("Failed to read file").into_boxed_slice();
+                let buffer_ref: &'static [u8] = Box::leak(buffer);
+                let name_ref: &'static str = Box::leak(entry.path().file_name().unwrap().to_string_lossy().to_string().into_boxed_str());
+
+                // if args.lenient{
+                //     let pe_data = pe_parser::lenient_parse(buffer_ref, name_ref).expect("Failed to parse, try lenient mode.");
+                //     valid_files.push(pe_data);
+                // }else{
+                //     let pe_data = pe_parser::parse_pe(buffer_ref, name_ref).expect("Failed to parse, try lenient mode.");
+                //     valid_files.push(pe_data);
+                // }
+                
+                if let Ok(pe_data) = pe_parser::parse_pe(buffer_ref, name_ref) {
+                    valid_files.push(pe_data);
+                } else if let Ok(pe_data) = pe_parser::lenient_parse(buffer_ref, name_ref) {
+                    valid_files.push(pe_data);
+                } else {
+                    eprintln!("Failed to parse file: {}", entry.path().display());
+                }
+
+            }
+        }
+
+        let graph = graph::build_import_graph(&valid_files);
+        term.write_line(&format!("Graph has {} nodes and {} edges", graph.node_count(), graph.edge_count())).unwrap();
+        graph::print_graph(&graph, "graph.svg");
+        _spinner.finish_with_message("Graphing complete!");
+        panic!("Graphing not fully implemented yet!");
+    }
 
     let _spinner = spinner("Processing file...");
     let buffer = fs::read(&args.file).expect("Failed to read file");
@@ -275,7 +324,7 @@ fn main() {
 
 
     // RULES - if notable strings/yara match
-    if !strings.is_empty() {
+    if !string_matches.is_empty() {
         term.write_line(&format!("{}",style("String Matches").bold().green())).unwrap();
         let mut strings_table = Table::new();
         strings_table.add_row(Row::new(vec![Cell::new("Rule"), Cell::new("Offset"), Cell::new("Value")]));   
