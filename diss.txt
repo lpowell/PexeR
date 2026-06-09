@@ -1,0 +1,120 @@
+ret
+nop dword ptr [rax+rax]
+nop word ptr cs:[rax+rax]
+sub rsp, 0x28
+mov rax, [0x1903840]
+xor edx, edx
+mov dword ptr [rax], 0x1
+mov rax, [0x1903850]
+mov dword ptr [rax], 0x1
+mov rax, [0x1903860]
+mov dword ptr [rax], 0x1
+mov rax, [0x1903830]
+mov dword ptr [rax], 0x1
+mov rax, [0x1903720]
+cmp word ptr [rax], 0x5A4D
+je 0x6B0
+mov rax, [0x1903820]
+mov [0x1957608], edx
+mov eax, [rax]
+test eax, eax
+je 0x6A0
+mov ecx, 0x2
+call 0xB91248
+call 0xB912B0
+mov rdx, [0x19037E0]
+mov edx, [rdx]
+mov [rax], edx
+call 0xB8FBA0
+mov rax, [0x19036D0]
+cmp dword ptr [rax], 0x1
+je 0x6F0
+xor eax, eax
+add rsp, 0x28
+ret
+nop dword ptr [rax]
+mov ecx, 0x1
+call 0xB91248
+jmp 0x675
+nop dword ptr [rax]
+movsxd rcx, [rax+0x3C]
+add rax, rcx
+cmp dword ptr [rax], 0x4550
+jne 0x658
+movzx ecx, word ptr [rax+0x18]
+cmp cx, 0x10B
+je 0x703
+cmp cx, 0x20B
+jne 0x658
+cmp dword ptr [rax+0x84], 0xE
+jbe 0x658
+mov ecx, [rax+0xF8]
+xor edx, edx
+test ecx, ecx
+setne dl
+jmp 0x658
+lea rcx, [0xB8FEB0]
+call 0xB8FEA0
+xor eax, eax
+add rsp, 0x28
+ret
+cmp dword ptr [rax+0x74], 0xE
+jbe 0x658
+mov r8d, [rax+0xE8]
+xor edx, edx
+test r8d, r8d
+setne dl
+jmp 0x658
+nop dword ptr [rax+rax]
+nop word ptr cs:[rax+rax]
+sub rsp, 0x38
+mov rax, [0x1903810]
+lea r8, [0x1957610]
+lea rdx, [0x1957618]
+lea rcx, [0x1957620]
+mov eax, [rax]
+mov [0x1957600], eax
+lea rax, [0x1957600]
+mov [rsp+0x20], rax
+mov rax, [0x19037D0]
+mov r9d, [rax]
+call 0xB91258
+nop
+add rsp, 0x38
+ret
+nop dword ptr [rax]
+push r13
+push r12
+push rbp
+push rdi
+push rsi
+push rbx
+sub rsp, 0x98
+xor eax, eax
+mov ecx, 0xD
+lea rdx, [rsp+0x20]
+mov rdi, rdx
+rep stosq [rdi], rax
+mov rdi, [0x1903820]
+mov r9d, [rdi]
+test r9d, r9d
+jne 0xA70
+mov rax, gs:[0x30]
+mov rbx, [0x1903770]
+xor ebp, ebp
+mov rsi, [rax+0x8]
+mov r12, [0x2126ADC]
+jmp 0x7E4
+cmp rsi, rax
+je 0xA10
+mov ecx, 0x3E8
+call r12
+mov rax, rbp
+lock cmpxchg [rbx], rsi
+test rax, rax
+jne 0x7D3
+mov rsi, [0x1903780]
+xor ebp, ebp
+mov eax, [rsi]
+cmp eax, 0x1
+(bad)

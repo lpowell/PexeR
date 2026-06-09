@@ -22,6 +22,7 @@ mod pe_parser;
 mod deep_scan;
 mod third_party;
 mod graph;
+mod disassemble;
 
 
 // private structs
@@ -53,7 +54,13 @@ struct Args {
     vt: bool,
 
     #[arg(short, long, default_value_t = false, help = "Graph relationships between PE files in a directory. Saves graph to graph.svg in the working directory. Very much a WIP.")]
-    graph: bool
+    graph: bool,
+    
+    #[arg(short = 'D', long, default_value_t = false, help = "Graph relationships between PE files in a directory. Saves graph to graph.svg in the working directory. Very much a WIP.")]
+    disassemble: bool,
+
+    #[arg(short, long, default_value = "", help = "Graph relationships between PE files in a directory. Saves graph to graph.svg in the working directory. Very much a WIP.")]
+    offset: String
 }
 
 
@@ -88,6 +95,7 @@ fn main() {
     let args = Args::parse();
     
     let term = Term::stdout();
+
 
     assert!(Path::new(&args.file).exists(),"Path does not exist: {}", args.file);
 
@@ -170,6 +178,24 @@ fn main() {
     }
     _spinner.finish_with_message("PE file parsed!");
 
+    if args.disassemble {
+        let _spinner = spinner("Disassembling...");
+        let offset = usize::from_str_radix(args.offset.strip_prefix("0x").unwrap_or(&args.offset),16).unwrap();
+        // testing
+        if pe_data.bitness{
+            let segment: &[u8] = &buffer[offset..offset+512];
+            let ip = pe_data.image_base;
+            disassemble::disassemble(&segment, 64, offset as u64);
+        }else{
+            let segment: &[u8] = &buffer[offset..offset+512];
+            let ip = pe_data.image_base;
+            disassemble::disassemble(&segment,  32, offset as u64);
+        }
+        // panic!("testing");
+        _spinner.finish_with_message("disassembled!");
+        return;
+    }
+
     let _spinner = spinner("Calculating entropy...");
     // calculate entropy
     let entropy = shannon_entropy(&buffer);
@@ -237,10 +263,10 @@ fn main() {
     term.write_line(&format!("{}",style("SECTIONS").bold().green())).unwrap();
 
     let mut section_table = Table::new();
-    section_table.add_row(Row::new(vec![Cell::new("Name"), Cell::new("Virtual Address"), Cell::new("Virtual Size")]));
+    section_table.add_row(Row::new(vec![Cell::new("Name"), Cell::new("Raw Address"),Cell::new("Virtual Address"), Cell::new("Virtual Size")]));
 
     for section in pe_data.sections {
-        section_table.add_row(Row::new(vec![Cell::new(String::from_utf8_lossy(&section.name).trim_matches('\0')), Cell::new(&format!("{:#x}", section.virtual_address)), Cell::new(&format!("{:#x}", section.virtual_size))]));
+        section_table.add_row(Row::new(vec![Cell::new(String::from_utf8_lossy(&section.name).trim_matches('\0')), Cell::new(&format!("{:#x}", section.pointer_to_raw_data)),Cell::new(&format!("{:#x}", section.virtual_address)), Cell::new(&format!("{:#x}", section.virtual_size))]));
         
     }
 
