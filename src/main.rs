@@ -248,7 +248,7 @@ fn main() {
     meta_table.add_row(Row::new(vec![Cell::new("File Entropy"), Cell::new(&format!("{:.4}", entropy))]));
     meta_table.add_row(Row::new(vec![Cell::new("Verified Certificate"), Cell::new(&pe_data.certificates.to_string())]));
     meta_table.add_row(Row::new(vec![Cell::new("File Hash"), Cell::new(&pe_hash)]));
-    if args.vt {
+    if args.vt && vt_data.get("No results").is_none() {
         meta_table.add_row(Row::new(vec![Cell::new("VirusTotal Description"), Cell::new(&vt_data.get("Type Description").unwrap_or(&"N/A".to_string()))]));
         meta_table.add_row(Row::new(vec![Cell::new("VirusTotal First Submission"), Cell::new(&vt_data.get("First Submission").unwrap_or(&"N/A".to_string()))]));
         meta_table.add_row(Row::new(vec![Cell::new("VirusTotal Last Analysis"), Cell::new(&vt_data.get("Last Analysis Stats").unwrap_or(&"N/A".to_string()))]));
@@ -358,7 +358,7 @@ fn main() {
         strings_table.add_row(Row::new(vec![Cell::new("Rule"), Cell::new("Offset"), Cell::new("Value")]));   
         for (name, matches) in string_matches {
             for s in matches {
-                strings_table.add_row(Row::new(vec![Cell::new(name), Cell::new(&format!("{:#x}", s.offset)), Cell::new(&truncate_str(&s.value, 80))]));
+                strings_table.add_row(Row::new(vec![Cell::new(name), Cell::new(&format!("{:#x}", s.offset)), Cell::new(&truncate_str(&s.value, 80).trim_matches('\0').trim())]));
             }
         }
         strings_table.printstd();

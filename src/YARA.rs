@@ -62,7 +62,7 @@ fn load_file(compiler: &mut yara_x::Compiler, path: &std::path::Path) -> Result<
     let src = std::fs::read_to_string(path)
         .map_err(|e| format!("Failed to read {}: {}", path.display(), e))?;
 
-        eprintln!("loading: {}", path.display());
+        // eprintln!("loading: {}", path.display());
 
     compiler
         .add_source(src.as_str())
